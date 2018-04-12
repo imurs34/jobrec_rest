@@ -34,7 +34,6 @@ def job_list(request, format=None):
     info['First Name'] = 'Jeongyeon'
     info['Last Name'] = 'Kim'
     info['Email'] = 'imurs4825@gmail.com'
-    info['Comment'] = 'Hello'
     info['interests'] = ['Driver', 'Events']
 
     if request.method == 'GET':
@@ -59,8 +58,8 @@ def job_list(request, format=None):
         con = lite.connect('jobs.sqlite3')
         with con:
             cursor = con.cursor()
-            #cursor.execute("CREATE TABLE Users(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, Comment TEXT)")
-            cursor.execute("INSERT INTO Users (FirstName, Lastname, Email, Comment) VALUES(?, ?, ?, ?)", (info['First Name'], info['Last Name'], info['Email'], info['Comment']))
+            cursor.execute("CREATE TABLE Users(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT)")
+            #cursor.execute("INSERT INTO Users (FirstName, Lastname, Email) VALUES(?, ?, ?)", (info['First Name'], info['Last Name'], info['Email']))
         return Response()
 
 @api_view(['GET', 'PUT', 'DELETE'])
