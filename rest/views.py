@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from .models import Job
 from django.contrib.auth.models import User
-from .serializers import JobSerializer
+from .serializers import JobSerializer, UserSerializer
 
 from .TopFive import TopFive
 from django.forms.models import model_to_dict
@@ -43,24 +43,31 @@ def job_list(request, format=None):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        '''
+        
         data = JSONParser().parse(request)
-        serializer = JobSerializer(data=data)
+        serializer = UserSerializer(data=data)
+
+        print("?")
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            print("??")
+            print(serializer.data)
+            return Response()
+            #return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         print(serializer.error_messages)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        '''
+
 
         con = lite.connect('jobs.sqlite3')
         with con:
             cursor = con.cursor()
-            cursor.execute("CREATE TABLE Users(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT)")
-            #cursor.execute("INSERT INTO Users (FirstName, Lastname, Email) VALUES(?, ?, ?)", (info['First Name'], info['Last Name'], info['Email']))
+            cursor.execute("CREATE TABLE rest_user(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, interest1 TEXT, interest TEXT)")
+            #cursor.execute("INSERT INTO User (FirstName, Lastname, Email) VALUES(?, ?, ?)", (info['First Name'], info['Last Name'], info['Email'], info['Email']))
         return Response()
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def job_detail(request, format=None):

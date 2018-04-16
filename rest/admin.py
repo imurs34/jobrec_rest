@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Job
+from .models import Job, Ints, User
 
 # Register your models here.
-admin.site.register(Job)
+myModels = [Job, Ints, User]
+admin.site.register(myModels)
