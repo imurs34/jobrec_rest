@@ -43,7 +43,7 @@ def job_list(request, format=None):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        
+
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
 
@@ -64,7 +64,7 @@ def job_list(request, format=None):
         con = lite.connect('jobs.sqlite3')
         with con:
             cursor = con.cursor()
-            cursor.execute("CREATE TABLE rest_user(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, interest1 TEXT, interest TEXT)")
+            cursor.execute("CREATE TABLE rest_user(Id INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, Email TEXT, interest1 TEXT, interest2 TEXT)")
             #cursor.execute("INSERT INTO User (FirstName, Lastname, Email) VALUES(?, ?, ?)", (info['First Name'], info['Last Name'], info['Email'], info['Email']))
         return Response()
 
